@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="540.0" prefWidth="899.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.AdminTodoController">
+    <children>
+        <VBox layoutX="20" layoutY="20" prefHeight="520" prefWidth="852.0" spacing="10">
+            <Label styleClass="heading" text="Admin View - User and Group Todos" />
+
+            <TableView fx:id="todoTable" prefHeight="400.0" prefWidth="810.0">
+                <columns>
+                    <TableColumn fx:id="todoIdColumn" prefWidth="100" text="Todo ID" />
+                    <TableColumn fx:id="userIdColumn" prefWidth="100" text="User ID" />
+                    <TableColumn fx:id="groupIdColumn" prefWidth="100" text="Group ID" />
+                    <TableColumn fx:id="itemNameColumn" prefWidth="250" text="Item Name" />
+                    <TableColumn fx:id="completedColumn" prefWidth="100" text="Completed" />
+                    <TableColumn fx:id="createdAtColumn" prefWidth="200" text="Created At" />
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="353.0" prefWidth="470.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.DeleteGroupController">
+   <children>
+       <Label layoutX="68.0" layoutY="126.0" text="Select Group:" />
+       <ComboBox fx:id="groupComboBox" layoutX="189.0" layoutY="120.0" prefWidth="200" />
+        <Button fx:id="cancelButton" layoutX="272.0" layoutY="225.0" text="Cancel" />
+        <Button fx:id="confirmButton" layoutX="56.0" layoutY="225.0" styleClass="logoutButton" text="Confirm Delete" />
+       <Label layoutX="4.0" layoutY="1.0" styleClass="heading" stylesheets="@../style/styles.css" text="Delete Group" />
+      <Label layoutX="4.0" layoutY="41.0" maxHeight="5.0" minHeight="5.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" text="Label" />
+   </children>
+</AnchorPane>

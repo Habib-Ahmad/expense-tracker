@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.AdminChartController">
+
+    <top>
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10;" text="Admin View: Budget and Transactions by Category" BorderPane.alignment="CENTER" />
+    </top>
+
+    <center>
+      <HBox>
+         <children>
+               <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="600.0" title="Spending vs Limit by Category">
+                   <xAxis>
+                       <CategoryAxis fx:id="categoryAxis" label="Category" />
+                   </xAxis>
+                   <yAxis>
+                       <NumberAxis fx:id="numberAxis" label="Amount" />
+                   </yAxis>
+               </BarChart>
+   
+                  <PieChart fx:id="pieChart" prefHeight="300.0" prefWidth="600.0" title="Category Spending Distribution" />
+         </children>
+      </HBox>
+    </center>
+
+    <bottom>
+    </bottom>
+
+</BorderPane>

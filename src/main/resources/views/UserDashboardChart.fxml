@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.theforeigners.expensecalculator.controllers.UserChartController">
+
+    <top>
+        <Label text="User Statistics" style="-fx-font-size: 18; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER" />
+    </top>
+
+    <center>
+        <TabPane>
+            <Tab text="Bar Chart">
+                <AnchorPane>
+                    <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="600.0">
+                        <xAxis>
+                            <CategoryAxis fx:id="categoryAxis" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="numberAxis" />
+                        </yAxis>
+                    </BarChart>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Pie Chart">
+                <AnchorPane>
+                    <PieChart fx:id="pieChart" prefHeight="400.0" prefWidth="600.0" />
+                </AnchorPane>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>

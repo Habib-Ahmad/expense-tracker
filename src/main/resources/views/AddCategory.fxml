@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="281.0" prefWidth="400.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.AddCategoryController">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" styleClass="heading" text="Add Category" />
+
+        <Label layoutX="20.0" layoutY="80.0" text="Category Name:">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+        <TextField fx:id="categoryNameField" layoutX="150.0" layoutY="75.0" prefWidth="200.0" promptText="Enter Name" />
+
+        <Label layoutX="20.0" layoutY="130.0" text="Description:">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+        <TextArea fx:id="categoryDescription" layoutX="150.0" layoutY="125.0" prefHeight="80.0" prefWidth="200.0" promptText="Enter Description" />
+
+        <Button fx:id="addCategoryBtn" layoutX="150.0" layoutY="230.0" prefHeight="46.0" prefWidth="91.0" style="-fx-background-color: #0335fc; -fx-font-weight: bold;" text="Save" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+        <Button fx:id="cancelButton" layoutX="250.0" layoutY="230.0" prefHeight="46.0" prefWidth="98.0" style="-fx-background-color: #0335fc; -fx-font-weight: bold;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Label layoutX="10.0" layoutY="55.0" maxHeight="9.0" minHeight="3.0" prefHeight="3.0" prefWidth="200.0" style="-fx-background-color: black;" />
+    </children>
+</AnchorPane>

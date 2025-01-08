@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="568.0" prefWidth="800.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.ManageUsersController">
+    <children>
+        <VBox layoutX="20.0" layoutY="13.0" prefWidth="250.0" spacing="15.0">
+            <children>
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Edit User" />
+
+                <Label text="Username:" />
+                <TextField fx:id="usernameField" promptText="Enter Username" />
+
+                <Label text="Email:" />
+                <TextField fx:id="emailField" promptText="Enter Email" />
+
+                <Label text="Password:" />
+                <TextField fx:id="passwordField" promptText="Enter Password" />
+
+                <Label text="Role:" />
+            <ComboBox fx:id="roleComboBox" prefHeight="34.0" prefWidth="252.0" promptText="Select Role" />
+
+                <HBox spacing="10.0">
+                    <Button onAction="#handleUpdateUser" text="Update" />
+                    <Button onAction="#handleResetFields" text="Reset" />
+                </HBox>
+            </children>
+        </VBox>
+
+        <VBox layoutX="290.0" layoutY="13.0" prefHeight="544.0" prefWidth="490.0" spacing="20.0">
+            <children>
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Manage Users" />
+
+                <TableView fx:id="usersTable" prefHeight="400.0" prefWidth="490.0">
+                    <columns>
+                        <TableColumn fx:id="usernameColumn" prefWidth="150.0" text="Username" />
+                        <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                        <TableColumn fx:id="roleColumn" prefWidth="139.0" text="Role" />
+                    </columns>
+                </TableView>
+
+                <HBox spacing="20.0">
+                    <Button onAction="#handleAddUser" text="Add User" />
+                    <Button onAction="#handleEditUser" text="Edit User" />
+                    <Button onAction="#handleDeleteUser" text="Delete User" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

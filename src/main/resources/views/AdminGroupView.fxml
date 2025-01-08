@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@../style/styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="org.theforeigners.expensecalculator.controllers.AdminGroupController">
+
+    <top>
+        <Label styleClass="heading" text="Admin Panel: Manage Groups and Users" BorderPane.alignment="CENTER" />
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10;">
+            <TableView fx:id="tableView" prefHeight="400.0">
+                <columns>
+                    <TableColumn fx:id="groupIdColumn" prefWidth="100.0" text="Group ID" />
+                    <TableColumn fx:id="groupNameColumn" prefWidth="150.0" text="Group Name" />
+                    <TableColumn fx:id="userIdColumn" prefWidth="100.0" text="User ID" />
+                    <TableColumn fx:id="userNameColumn" prefWidth="150.0" text="User Name" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+            <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="User Distribution Across Groups" />
+            <PieChart fx:id="groupDistributionChart" prefHeight="300.0" prefWidth="300.0" />
+        </VBox>
+    </right>
+    <bottom>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="660.0" prefWidth="600.0" stylesheets="@../style/styles.css"
+    xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.theforeigners.expensecalculator.controllers.ViewProfileController">
+    <children>
+        <VBox layoutX="20.0" layoutY="20.0" prefHeight="560.0" prefWidth="560.0" spacing="20.0">
+            <children>
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="View Profile" />
+
+                <Label text="Username:" />
+                <TextField fx:id="usernameField" promptText="Enter Username" />
+
+                <Label text="Email:" />
+                <TextField fx:id="emailField" editable="false" prefWidth="560.0" promptText="Email" />
+
+                <Label prefHeight="1.0" prefWidth="100.0" text="Old Password:" />
+                <PasswordField fx:id="oldPasswordField" promptText="Enter Old Password" />
+
+                <Label text="New Password:" />
+                <PasswordField fx:id="newPasswordField" promptText="Enter New Password" />
+
+                <Label text="Confirm New Password:" />
+                <PasswordField fx:id="confirmPasswordField" promptText="Confirm New Password" />
+
+                <HBox spacing="20.0">
+                    <Button fx:id="updateButton" onAction="#handleUpdateProfile"
+                        style="-fx-background-color: #0335fc;" text="Update Profile" />
+                    <Button onAction="#handleCancel" style="-fx-background-color: #0335fc;"
+                        text="Cancel" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</AnchorPane>

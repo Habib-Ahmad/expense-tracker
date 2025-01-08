@@ -1,0 +1,167 @@
+.root {
+  -fx-background-color: white;
+  -fx-font-family: "Poppins", "Nunito", "Arial";
+}
+
+/* Label Styles */
+.label {
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+  -fx-font-family: "Poppins", "Nunito", "Arial";
+}
+
+.heading {
+  -fx-text-fill: black;
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+  -fx-font-family: "Poppins", "Nunito", "Arial";
+}
+
+/* Button Styles */
+.button {
+  -fx-background-color: #0335fc;
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-font-family: "Poppins", "Nunito", "Arial";
+  -fx-border-radius: 10px;
+  -fx-background-radius: 5px;
+  -fx-border-color: #0335fc;
+  -fx-border-width: 2;
+  -fx-pref-height: 40;
+}
+
+.logoutButton {
+  -fx-background-color: #ff0000;
+  -fx-border-color: white;
+}
+
+/* Button Hover Effect */
+.button:hover {
+  -fx-background-color: white;
+  -fx-text-fill: blue;
+}
+
+/* Text Field and Password Field Styles */
+.text-field,
+.password-field {
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+  -fx-border-color: black;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  -fx-padding: 5 10;
+  -fx-pref-height: 40;
+}
+
+.text-field:focused,
+.password-field:focused {
+  -fx-border-color: white;
+  -fx-text-fill: #87ceeb;
+}
+
+/* Date Picker Styles */
+.date-picker {
+  -fx-font-size: 16px;
+  -fx-border-radius: 5px 0px 0px 5px;
+  -fx-background-radius: 5px;
+}
+
+.date-picker .text {
+  -fx-fill: black;
+}
+
+/* Table View Styles */
+.table-view {
+  -fx-background-color: white;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+  -fx-font-size: 16px;
+}
+
+.table-view .column-header-background {
+  -fx-background-color: #87ceeb;
+}
+
+.table-view .column-header .label {
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+}
+
+.table-view .cell {
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+}
+
+/* Tooltip Styles */
+.tooltip {
+  -fx-background-color: #87ceeb;
+  -fx-text-fill: white;
+  -fx-font-size: 14px;
+  -fx-font-family: "Poppins", "Nunito", "Arial";
+  -fx-background-radius: 10px;
+}
+
+/* ComboBox Styles */
+.combo-box {
+  -fx-font-size: 16px;
+  -fx-border-color: black;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+}
+
+.combo-box:focused {
+  -fx-border-color: white;
+}
+
+/* Scroll Bar Styles */
+.scroll-bar {
+  -fx-background-color: black;
+}
+
+.scroll-bar .thumb {
+  -fx-background-color: white;
+  -fx-background-radius: 10px;
+}
+
+/* Tab Pane Styles */
+.tab-pane {
+  -fx-tab-max-width: 200px;
+}
+
+.tab-pane .tab-header-area {
+  -fx-background-color: #87ceeb;
+}
+
+.tab-pane .tab-label {
+  -fx-text-fill: white;
+}
+
+/* List View Styles */
+.list-view {
+  -fx-background-color: white;
+  -fx-border-color: #87ceeb;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  -fx-padding: 10;
+}
+
+.list-view .list-cell {
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+}
+
+.list-view .cell:selected {
+  -fx-background-color: #a8d08d;
+  -fx-text-fill: blue;
+}
+.income-cell {
+  -fx-background-color: lightgreen;
+  -fx-text-fill: black;
+}
+
+.expense-cell {
+  -fx-background-color: lightcoral;
+  -fx-text-fill: white;
+}

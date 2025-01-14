@@ -20,9 +20,8 @@ public class UtilityMethods {
             stage.setScene(new Scene(loader.load()));
             stage.centerOnScreen();
             stage.setTitle("My Expense Tracker");
-            // stage.setResizable(false);
             stage.show();
-            stage.setOnCloseRequest(event -> {
+            stage.setOnCloseRequest(_ -> {
                 System.exit(0);
             });
         } catch (Exception e) {
@@ -77,7 +76,7 @@ public class UtilityMethods {
         Notifications.create()
                 .title("Notification")
                 .text(message)
-                .position(Pos.BOTTOM_RIGHT)
+                .position(Pos.TOP_RIGHT)
                 .hideAfter(javafx.util.Duration.seconds(1.5))
                 .darkStyle()
                 .hideCloseButton()
@@ -88,7 +87,7 @@ public class UtilityMethods {
         Notifications.create()
                 .title("Warning")
                 .text(message)
-                .position(Pos.BOTTOM_RIGHT)
+                .position(Pos.TOP_RIGHT)
                 .hideAfter(javafx.util.Duration.seconds(1.5))
                 .darkStyle()
                 .hideCloseButton()

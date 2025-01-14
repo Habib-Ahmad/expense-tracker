@@ -62,10 +62,6 @@ public class LoginController implements Initializable {
             UtilityMethods.showPopupWarning("Invalid email address");
             return;
         }
-        if (password.length() < 6) {
-            UtilityMethods.showPopupWarning("Password must be at least 6 characters long");
-            return;
-        }
 
         try {
             Connection conn = DBConnection.getConnection();

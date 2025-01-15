@@ -58,13 +58,7 @@ public class GroupController {
     private ListView<User> userListView;
 
     @FXML
-    private MenuItem transactionMenuItem2;
-
-    @FXML
     private MenuItem chartMenuItem;
-
-    @FXML
-    private MenuItem groupMenuItem;
 
     @FXML
     private MenuItem groupMenuItem2;
@@ -246,9 +240,8 @@ public class GroupController {
     }
 
     private void setupMenuItemActions() {
-        groupMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroup"));
-        groupMenuItem2.setOnAction(_ -> UtilityMethods.switchToScene("DeleteGroup"));
-        budgetMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroupBudget", () -> {
+        groupMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("DeleteGroup"));
+        budgetMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroupBudget", () -> {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         }));
@@ -256,13 +249,9 @@ public class GroupController {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         }));
-        transactionMenuItem2.setOnAction(_ -> {
-            loadTransactionData(groupName);
-            loadBudgetData(groupName);
-        });
-        todoMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("GroupTodoList"));
-        todoMenuItem2.setOnAction(_ -> UtilityMethods.switchToScene("GroupViewTodo"));
-        chartMenuItem.setOnAction(_ -> {
+        todoMenuItem.setOnAction(event -> UtilityMethods.switchToScene("GroupTodoList"));
+        todoMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("GroupViewTodo"));
+        chartMenuItem.setOnAction(event -> {
             if (groupNameField.getText().isEmpty()) {
                 UtilityMethods.showPopupWarning("Select any group 1st");
                 return;
@@ -279,7 +268,7 @@ public class GroupController {
             String query = "SELECT u.user_id, u.name, u.email " +
                     "FROM USERS u " +
                     "JOIN GROUP_USERS gu ON u.user_id = gu.user_id " +
-                    "JOIN GROUPS g ON gu.group_id = g.group_id " +
+                    "JOIN `groups` g ON gu.group_id = g.group_id " +
                     "WHERE g.name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupName);
@@ -306,7 +295,7 @@ public class GroupController {
     private void loadBudgetData(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String groupQuery = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String groupQuery = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement groupPs = connection.prepareStatement(groupQuery);
             groupPs.setString(1, groupName);
             ResultSet groupRs = groupPs.executeQuery();
@@ -357,7 +346,7 @@ public class GroupController {
     private void loadTransactionData(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String groupQuery = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String groupQuery = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement groupPs = connection.prepareStatement(groupQuery);
             groupPs.setString(1, groupName);
             ResultSet groupRs = groupPs.executeQuery();
@@ -455,7 +444,7 @@ public class GroupController {
         }
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String query = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupNameField.getText());
             ResultSet rs = ps.executeQuery();
@@ -538,7 +527,7 @@ public class GroupController {
     private boolean isCurrentUserAdmin(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "SELECT admin_id FROM GROUPS WHERE name = ?";
+            String query = "SELECT admin_id FROM `groups` WHERE name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupName);
             ResultSet rs = ps.executeQuery();

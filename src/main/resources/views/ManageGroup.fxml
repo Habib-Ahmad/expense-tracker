@@ -84,80 +84,38 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <MenuBar layoutY="-1.0" prefHeight="31.0" prefWidth="934.0">
+      <MenuBar layoutY="-1.0" prefHeight="30.0" prefWidth="903.0">
          <menus>
             <Menu mnemonicParsing="false" text="Group">
                <items>
-                  <MenuItem fx:id="groupMenuItem" mnemonicParsing="false" text="Add Group">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT1" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem fx:id="groupMenuItem2" mnemonicParsing="false" text="Delete Group">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT2" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                  <MenuItem fx:id="groupMenuItem2" mnemonicParsing="false" text="Delete Group"></MenuItem>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Transactions">
                <items>
                   <MenuItem fx:id="transactionMenuItem" mnemonicParsing="false"
-                     text="Add Transaction">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT3" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem fx:id="transactionMenuItem2" mnemonicParsing="false" text="Update Data">
-                     <accelerator>
-                        <KeyCodeCombination alt="DOWN" code="DIGIT1" control="UP" meta="UP"
-                           shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                     text="Add Transaction"></MenuItem>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Budget">
                <items>
-                  <MenuItem fx:id="budgetMenuItem" mnemonicParsing="false" text="Add Budget">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT4" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                  <MenuItem fx:id="budgetMenuItem" mnemonicParsing="false" text="Add Budget"></MenuItem>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Todo">
+            <Menu mnemonicParsing="false" text="ToDo">
                <items>
-                  <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add Todo">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT5" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem fx:id="todoMenuItem2" mnemonicParsing="false" text="View Todo">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT6" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                  <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add ToDo"></MenuItem>
+                  <MenuItem fx:id="todoMenuItem2" mnemonicParsing="false" text="View ToDo"></MenuItem>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Chart">
                <items>
-                  <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Charts">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT7" control="UP" meta="UP"
-                           shift="DOWN" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                  <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Charts"></MenuItem>
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <Label layoutX="28.0" layoutY="110.0" text="Search Users:" />
+      <Label layoutX="28.0" layoutY="110.0" text="Add Users:" />
       <TextField fx:id="usernameField" alignment="CENTER" layoutX="158.0" layoutY="104.0"
          prefHeight="34.0" prefWidth="250.0" promptText="     Enter Username">
          <padding>

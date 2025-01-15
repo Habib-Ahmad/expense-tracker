@@ -27,6 +27,10 @@ import java.time.Month;
 import java.util.ResourceBundle;
 
 public class UserDashboardController implements Initializable {
+
+    @FXML
+    private Label monthlyLeftoverLabel;
+
     @FXML
     private MenuItem budgetMenuItem;
 
@@ -50,15 +54,6 @@ public class UserDashboardController implements Initializable {
 
     @FXML
     private MenuItem transactionMenuItem;
-
-    @FXML
-    private MenuItem transactionMenuItem2;
-
-    @FXML
-    private MenuItem scheduleMenuItem;
-
-    @FXML
-    private MenuItem logoutMenuItem;
 
     @FXML
     private Button logoutBtn;
@@ -99,6 +94,12 @@ public class UserDashboardController implements Initializable {
         loadUserTotals();
         loadBudgetTableData();
         initializeBudgetListView();
+        usernameLbl.setText(SessionManager.getCurrentUserName());
+        setButtonActions();
+        populateMonthYearComboBox(SessionManager.getCurrentUserCreatedAt());
+
+        // Load leftover once now
+        loadMonthlyLeftover();
     }
 
     private void initializeBudgetListView() {
@@ -118,19 +119,77 @@ public class UserDashboardController implements Initializable {
         });
     }
 
+    private void loadMonthlyLeftover() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBConnection.getConnection();
+
+            String query = "SELECT " +
+                    "   SUM(CASE WHEN T.type = 'INCOME' THEN T.amount ELSE 0 END) AS total_incomes, " +
+                    "   SUM(CASE WHEN T.type = 'EXPENSE' THEN T.amount ELSE 0 END) AS total_expenses " +
+                    "FROM TRANSACTION T " +
+                    "WHERE T.user_id = ? " +
+                    "  AND T.group_id IS NULL " + // Exclude group transactions
+                    "  AND MONTH(T.date) = ? " +
+                    "  AND YEAR(T.date) = ?";
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, SessionManager.getCurrentUserId());
+            preparedStatement.setInt(2, currentDate.getMonthValue());
+            preparedStatement.setInt(3, currentDate.getYear());
+            resultSet = preparedStatement.executeQuery();
+
+            double totalIncomes = 0;
+            double totalExpenses = 0;
+
+            if (resultSet.next()) {
+                totalIncomes = resultSet.getDouble("total_incomes");
+                totalExpenses = resultSet.getDouble("total_expenses");
+            }
+
+            double leftover = totalIncomes - totalExpenses;
+            // Format however you like:
+            monthlyLeftoverLabel.setText(String.format("Current Month Remaining Money: $%.2f", leftover));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // recommended to close resultSet, statement, connection
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (Exception ignore) {
+            }
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (Exception ignore) {
+            }
+        }
+    }
+
     private HBox createBudgetCard(UserBudgetData item) {
         HBox card = new HBox();
         card.setSpacing(10);
         card.setStyle(
-                "-fx-padding: 10; -fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;");
+                "-fx-padding: 10; " +
+                        "-fx-background-color: #f8f8f8; " +
+                        "-fx-border-color: #ddd; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-background-radius: 5;");
         card.setPrefHeight(35);
 
         VBox detailsBox = new VBox();
         detailsBox.setSpacing(3);
 
+        // --- category label ---
         Label categoryLabel = new Label(item.getCategory());
         categoryLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
+        // --- limit label / textfield setup ---
         Label limitLabel = new Label(String.format("$%.0f", item.getLimit()));
         limitLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #555;");
         limitLabel.setTooltip(new Tooltip("Double click to edit"));
@@ -145,13 +204,14 @@ public class UserDashboardController implements Initializable {
                 String[] parts = selectedMonthYear.split(" ");
                 String monthName = parts[0];
                 int monthValue = Month.valueOf(monthName.toUpperCase()).getValue();
-                if (!(monthValue == LocalDate.now().getMonthValue())) {
+                // If it's not the current month, do not allow updates
+                if (monthValue != LocalDate.now().getMonthValue()) {
                     UtilityMethods.showPopupWarning("Cannot update past budget");
                     return;
                 }
             }
-            boolean doubleClicked = event.getClickCount() == 2;
-            if (doubleClicked) {
+            // Double-click
+            if (event.getClickCount() == 2) {
                 limitLabel.setVisible(false);
                 limitTextField.setVisible(true);
                 limitTextField.requestFocus();
@@ -159,7 +219,7 @@ public class UserDashboardController implements Initializable {
         });
 
         limitTextField.setOnAction(_ -> commitLimitEdit(limitTextField, limitLabel, item));
-        limitTextField.focusedProperty().addListener((_, _, newVal) -> {
+        limitTextField.focusedProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal) {
                 commitLimitEdit(limitTextField, limitLabel, item);
             }
@@ -167,24 +227,35 @@ public class UserDashboardController implements Initializable {
 
         detailsBox.getChildren().addAll(categoryLabel, limitLabel, limitTextField);
 
+        // --- progress bar setup ---
         ProgressBar progressBar = new ProgressBar();
-        double progressWidth = item.getSpend() == 0 ? 200 : (item.getSpend() / item.getLimit()) * 200;
+
+        // Compute a fraction in [0,1]
+        double progress = item.getLimit() > 0 ? (item.getSpend() / item.getLimit()) : 0.0;
+        // Keep it capped at 1.0 so you don't get weird overflows if spending exceeds
+        // limit
+        progress = Math.max(0, Math.min(1, progress));
+
+        progressBar.setProgress(progress);
+        progressBar.setPrefWidth(250);
+
+        // Decide the color
         Color barColor;
         if (item.getSpend() == 0) {
             barColor = Color.GRAY;
         } else {
-            barColor = item.getSpend() <= item.getLimit() ? Color.LIGHTGREEN : Color.LIGHTCORAL;
+            barColor = (item.getSpend() <= item.getLimit()) ? Color.LIGHTGREEN : Color.LIGHTCORAL;
         }
-        progressBar.setProgress(item.getSpend() / item.getLimit());
-        progressBar.setPrefWidth(progressWidth);
-        progressBar.setPrefWidth(250);
         progressBar.setStyle("-fx-accent: " + barColor.toString().replace("0x", "#") + ";");
+
+        // --- percentage label ---
+        // IMPORTANT: Only one placeholder in the format string, so pass just one value:
+        // progress * 100
+        Label spendLabel = new Label(String.format("%.0f%%", progress * 100));
+        spendLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #555;");
 
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        Label spendLabel = new Label(String.format("%.0f%%", (item.getSpend() / item.getLimit()) * 100));
-        spendLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #555;");
 
         VBox progressBox = new VBox(progressBar, spendLabel);
         progressBox.setSpacing(5);
@@ -243,6 +314,8 @@ public class UserDashboardController implements Initializable {
             int monthValue = Month.valueOf(monthName.toUpperCase()).getValue();
             currentDate = LocalDate.of(year, monthValue, 1);
 
+            SessionManager.setSelectedDate(currentDate);
+
             loadUserTotals();
             loadBudgetTableData();
         }
@@ -286,10 +359,7 @@ public class UserDashboardController implements Initializable {
             loadBudgetTableData();
             loadUserTotals();
         }));
-        transactionMenuItem2.setOnAction(_ -> {
-            loadBudgetTableData();
-            loadUserTotals();
-        });
+
         groupMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroup"));
         groupMenuItem2.setOnAction(_ -> {
             Stage stage = (Stage) logoutBtn.getScene().getWindow();
@@ -301,8 +371,6 @@ public class UserDashboardController implements Initializable {
         todoMenuItem2.setOnAction(_ -> UtilityMethods.switchToScene("UserViewTodo"));
         profileMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("ViewProfile"));
         chartMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("UserDashboardChart"));
-        scheduleMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("SchedulePlanner"));
-        logoutMenuItem.setOnAction(_ -> UtilityMethods.switchToScene(logoutBtn, "Login"));
         logoutBtn.setOnAction(_ -> {
             UtilityMethods.switchToScene(logoutBtn, "Login");
             UtilityMethods.showPopup("Successfully logged out!");

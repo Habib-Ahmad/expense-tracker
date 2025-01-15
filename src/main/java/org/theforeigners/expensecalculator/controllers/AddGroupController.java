@@ -44,7 +44,7 @@ public class AddGroupController {
 
     public void initialize() {
         cancelButton.setOnAction(event -> handleCancelButtonAction());
-        // loadUserData();
+        //loadUserData();
 
         userListView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 
@@ -131,7 +131,7 @@ public class AddGroupController {
 
     private void saveGroupToDb(String groupName) {
         int adminId = SessionManager.getCurrentUserId();
-        String insertGroupQuery = "INSERT INTO GROUPS (name, admin_id) VALUES (?, ?)";
+        String insertGroupQuery = "INSERT INTO `groups` (name, admin_id) VALUES (?, ?)";
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(insertGroupQuery, Statement.RETURN_GENERATED_KEYS);
@@ -144,6 +144,8 @@ public class AddGroupController {
                 if (rs.next()) {
                     int groupId = rs.getInt(1);
                     insertUserToGroup(groupId, adminId);
+                    SessionManager.setCurrentGroupId(groupId);
+                    SessionManager.setCurrentGroupName(groupName);
                     for (User user : userListView.getItems()) {
                         int userId = user.getId();
                         insertUserToGroup(groupId, userId);
@@ -165,6 +167,7 @@ public class AddGroupController {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            UtilityMethods.showPopup("Error saving group:\n" + e.getMessage());
         }
     }
 
@@ -197,7 +200,7 @@ public class AddGroupController {
             searchUsers(searchText);
         } else {
             UtilityMethods.showPopup("Enter username to search");
-            // loadUserData();
+            //loadUserData();
         }
     }
 
@@ -232,7 +235,7 @@ public class AddGroupController {
     }
 
     private boolean isGroupNameExists(String groupName) {
-        String query = "SELECT COUNT(*) FROM GROUPS WHERE name = ?";
+        String query = "SELECT COUNT(*) FROM `groups` WHERE name = ?";
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);

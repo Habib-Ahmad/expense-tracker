@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<!--<?import
+de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>-->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -11,117 +13,48 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="600.0" prefWidth="1287.0" spacing="10.0" stylesheets="@../style/styles.css"
-    xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="org.theforeigners.expensecalculator.controllers.UserDashboardController">
     <children>
         <MenuBar>
             <menus>
-                <Menu mnemonicParsing="false" text="Transaction">
+                <Menu mnemonicParsing="false" text="Transactions">
                     <items>
                         <MenuItem fx:id="transactionMenuItem" mnemonicParsing="false"
-                            text="Add Transaction">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT2" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="transactionMenuItem2" mnemonicParsing="false"
-                            text="Update Data">
-                            <accelerator>
-                                <KeyCodeCombination alt="DOWN" code="DIGIT2" control="UP" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                            text="Add Transaction" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Budget">
+                <Menu mnemonicParsing="false" text="Budgets">
                     <items>
                         <MenuItem fx:id="budgetMenuItem" mnemonicParsing="false"
-                            text="Create Budget">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT1" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                            text="Create Budget" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Group">
                     <items>
-                        <MenuItem fx:id="groupMenuItem" mnemonicParsing="false" text="Add Group">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT3" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="groupMenuItem2" mnemonicParsing="false" text="Manage Group">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT4" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                        <MenuItem fx:id="groupMenuItem" mnemonicParsing="false" text="Add Group" />
+                        <MenuItem fx:id="groupMenuItem2" mnemonicParsing="false" text="Manage Group" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Profile">
+                <Menu mnemonicParsing="false" text="Profiles">
                     <items>
                         <MenuItem fx:id="profileMenuItem" mnemonicParsing="false"
-                            text="View Profile">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT5" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                            text="View Profile" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="TodoList">
+                <Menu mnemonicParsing="false" text="ToDo List">
                     <items>
-                        <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add Todo">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT6" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="todoMenuItem2" mnemonicParsing="false" text="View Todo">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT7" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                        <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add ToDo" />
+                        <MenuItem fx:id="todoMenuItem2" mnemonicParsing="false" text="View ToDo" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Charts">
                     <items>
-                        <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Chart">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT8" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Schedule">
-                    <items>
-                        <MenuItem fx:id="scheduleMenuItem" mnemonicParsing="false"
-                            text="Schedule-Planning">
-                            <accelerator>
-                                <KeyCodeCombination alt="DOWN" code="DIGIT8" control="UP" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Logout">
-                    <items>
-                        <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" text="logout">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="DIGIT9" control="DOWN" meta="UP"
-                                    shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
+                        <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Chart" />
                     </items>
                 </Menu>
             </menus>
@@ -140,21 +73,30 @@
             <!-- <Button fx:id="prevMonthBtn" text="Prev">
                 <graphic>
                     <FontAwesomeIcon glyphName="BACKWARD" />
-                </graphic>
+                </graphic>-->
             </Button>
-            <Button fx:id="nextMonthBtn" text="Next">
+            <Button fx:id="nextMonthBtn"
+                text="Next">
                 <graphic>
-                    <FontAwesomeIcon glyphName="FORWARD" />
+                    <!--<FontAwesomeIcon
+                    glyphName="FORWARD" />-->
                 </graphic>
-            </Button> -->
-            <ComboBox fx:id="monthYearComboBox" promptText="Select Month-Year"
+            </Button> --> <ComboBox
+                fx:id="monthYearComboBox" promptText="Select Month-Year"
                 styleClass="combo-box" />
-            <Button fx:id="logoutBtn" style="-fx-border-color: red;" styleClass="logoutButton"
+            <Button fx:id="logoutBtn" style="-fx-border-color: red;"
+                styleClass="logoutButton"
                 text="Logout">
                 <graphic>
-                    <FontAwesomeIcon glyphName="SIGN_OUT" size="1.5EM" />
+                    <!--<FontAwesomeIcon
+                    glyphName="SIGN_OUT" size="1.5EM" />-->
                 </graphic>
             </Button>
+            <Label
+                fx:id="monthlyLeftoverLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+                prefHeight="20.0" prefWidth="836.0"
+                style="-fx-font-size: 16px; -fx-font-weight: bold;"
+                text="Current Month Remaining Money: " />
             <VBox.margin>
                 <Insets left="20.0" />
             </VBox.margin>

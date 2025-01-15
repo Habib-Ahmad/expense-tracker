@@ -28,7 +28,7 @@ public class GroupSelectionController {
     private void loadGroupNames() {
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "SELECT name FROM GROUPS WHERE admin_id = ?";
+            String query = "SELECT name FROM `groups` WHERE admin_id = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, SessionManager.getCurrentUserId());
             ResultSet rs = ps.executeQuery();
@@ -49,7 +49,7 @@ public class GroupSelectionController {
         try {
             Connection connection = DBConnection.getConnection();
             String query = "SELECT g.name " +
-                    "FROM GROUPS g " +
+                    "FROM `groups` g " +
                     "JOIN GROUP_USERS gu ON g.group_id = gu.group_id " +
                     "WHERE gu.user_id = ?";
             PreparedStatement ps = connection.prepareStatement(query);

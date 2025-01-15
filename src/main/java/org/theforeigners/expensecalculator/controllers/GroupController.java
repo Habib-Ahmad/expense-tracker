@@ -225,7 +225,7 @@ public class GroupController {
             String query = "SELECT u.user_id, u.name, u.email " +
                     "FROM USERS u " +
                     "JOIN GROUP_USERS gu ON u.user_id = gu.user_id " +
-                    "JOIN GROUPS g ON gu.group_id = g.group_id " +
+                    "JOIN `groups` g ON gu.group_id = g.group_id " +
                     "WHERE g.name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupName);
@@ -252,7 +252,7 @@ public class GroupController {
     private void loadBudgetData(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String groupQuery = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String groupQuery = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement groupPs = connection.prepareStatement(groupQuery);
             groupPs.setString(1, groupName);
             ResultSet groupRs = groupPs.executeQuery();
@@ -302,7 +302,7 @@ public class GroupController {
     private void loadTransactionData(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String groupQuery = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String groupQuery = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement groupPs = connection.prepareStatement(groupQuery);
             groupPs.setString(1, groupName);
             ResultSet groupRs = groupPs.executeQuery();
@@ -401,7 +401,7 @@ public class GroupController {
         }
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "SELECT group_id FROM GROUPS WHERE name = ?";
+            String query = "SELECT group_id FROM `groups` WHERE name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupNameField.getText());
             ResultSet rs = ps.executeQuery();
@@ -484,7 +484,7 @@ public class GroupController {
     private boolean isCurrentUserAdmin(String groupName) {
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "SELECT admin_id FROM GROUPS WHERE name = ?";
+            String query = "SELECT admin_id FROM `groups` WHERE name = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, groupName);
             ResultSet rs = ps.executeQuery();

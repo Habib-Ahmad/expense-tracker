@@ -151,7 +151,7 @@ public class AddGroupBudgetController implements CallbackHandler {
     }
 
     private int getGroupIdByName(String groupName) {
-        String query = "SELECT group_id FROM GROUPS WHERE name = ?";
+        String query = "SELECT group_id FROM `groups` WHERE name = ?";
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);

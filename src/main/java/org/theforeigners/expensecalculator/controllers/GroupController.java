@@ -71,13 +71,7 @@ public class GroupController {
     private ListView<User> userListView;
 
     @FXML
-    private MenuItem transactionMenuItem2;
-
-    @FXML
     private MenuItem chartMenuItem;
-
-    @FXML
-    private MenuItem groupMenuItem;
 
     @FXML
     private MenuItem groupMenuItem2;
@@ -94,7 +88,6 @@ public class GroupController {
     @FXML
     private MenuItem budgetMenuItem;
 
-    private int groupId = SessionManager.getCurrentGroupId();
     private String groupName = SessionManager.getCurrentGroupName();
 
     private ObservableList<UserBudgetData> budgetData = FXCollections.observableArrayList();
@@ -192,7 +185,6 @@ public class GroupController {
     }
 
     private void setupMenuItemActions() {
-        groupMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroup"));
         groupMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("DeleteGroup"));
         budgetMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroupBudget", () -> {
             loadTransactionData(groupName);
@@ -202,10 +194,6 @@ public class GroupController {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         }));
-        transactionMenuItem2.setOnAction(event -> {
-            loadTransactionData(groupName);
-            loadBudgetData(groupName);
-        });
         todoMenuItem.setOnAction(event -> UtilityMethods.switchToScene("GroupTodoList"));
         todoMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("GroupViewTodo"));
         chartMenuItem.setOnAction(event -> {

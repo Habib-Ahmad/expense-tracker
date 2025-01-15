@@ -70,27 +70,12 @@ de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>-->
             <Label text="!" />
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <!-- <Button fx:id="prevMonthBtn" text="Prev">
-                <graphic>
-                    <FontAwesomeIcon glyphName="BACKWARD" />
-                </graphic>-->
-            </Button>
-            <Button fx:id="nextMonthBtn"
-                text="Next">
-                <graphic>
-                    <!--<FontAwesomeIcon
-                    glyphName="FORWARD" />-->
-                </graphic>
-            </Button> --> <ComboBox
+            <ComboBox
                 fx:id="monthYearComboBox" promptText="Select Month-Year"
                 styleClass="combo-box" />
             <Button fx:id="logoutBtn" style="-fx-border-color: red;"
                 styleClass="logoutButton"
                 text="Logout">
-                <graphic>
-                    <!--<FontAwesomeIcon
-                    glyphName="SIGN_OUT" size="1.5EM" />-->
-                </graphic>
             </Button>
             <Label
                 fx:id="monthlyLeftoverLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT"

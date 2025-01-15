@@ -40,31 +40,19 @@ public class AddGroupTransactionController implements Initializable, CallbackHan
     @FXML
     private ComboBox<TransactionType> typeComboBox;
 
-    @FXML
-    private CheckBox splitCheckBox;
-
     private HashMap<String, Integer> categoryMap = new HashMap<>();
     private List<User> participants = new ArrayList<>();
 
     private int loggedInUserId = SessionManager.getCurrentUserId();
-    private int groupId = SessionManager.getCurrentGroupId();
     private String groupName = SessionManager.getCurrentGroupName();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeComboBox.getItems().setAll(TransactionType.values());
         loadCategoriesFromDatabase();
-        saveButton.setOnAction(event -> handleSaveTransaction());
-        cancelButton.setOnAction(event -> handleCancel());
+        saveButton.setOnAction(_ -> handleSaveTransaction());
+        cancelButton.setOnAction(_ -> handleCancel());
         loadGroupMembers();
-        splitCheckBox.setDisable(true);
-        addListenerToComboBox();
-    }
-
-    private void addListenerToComboBox() {
-        typeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            splitCheckBox.setDisable(newValue != TransactionType.EXPENSE);
-        });
     }
 
     private void loadCategoriesFromDatabase() {
@@ -90,7 +78,7 @@ public class AddGroupTransactionController implements Initializable, CallbackHan
         String categoryName = categoryComboBox.getValue();
         TransactionType transactionType = typeComboBox.getValue();
         LocalDate transactionDate = datePicker.getValue();
-        boolean split = splitCheckBox.isSelected();
+        boolean split = false;
 
         if (amountText.isEmpty() || categoryName == null || transactionType == null || transactionDate == null
                 || groupName == null) {

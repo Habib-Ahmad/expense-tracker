@@ -9,49 +9,54 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="466.0" prefWidth="477.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.AddGroupTransactionController">
+<AnchorPane prefHeight="466.0" prefWidth="477.0" stylesheets="@../style/styles.css"
+    xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.theforeigners.expensecalculator.controllers.AddGroupTransactionController">
     <children>
         <Label layoutX="24.0" layoutY="20.0" styleClass="heading" text="Add Transaction" />
 
         <Label layoutX="13.0" layoutY="80.0" text="Type (Income/Expense):">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <ComboBox fx:id="typeComboBox" layoutX="227.0" layoutY="75.0" prefWidth="200.0" promptText="Choose Type" />
+            </font>
+        </Label>
+        <ComboBox fx:id="typeComboBox" layoutX="227.0" layoutY="75.0" prefWidth="200.0"
+            promptText="Choose Type" />
 
         <Label layoutX="13.0" layoutY="148.0" text="Amount:">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <TextField fx:id="amountField" layoutX="222.0" layoutY="143.0" prefWidth="200.0" promptText="Enter Amount" />
+            </font>
+        </Label>
+        <TextField fx:id="amountField" layoutX="222.0" layoutY="143.0" prefWidth="200.0"
+            promptText="Enter Amount" />
 
         <Label layoutX="14.0" layoutY="287.0" text="Date:">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <DatePicker fx:id="datePicker" layoutX="216.0" layoutY="275.0" prefWidth="200.0" promptText="Choose Date" />
+            </font>
+        </Label>
+        <DatePicker fx:id="datePicker" layoutX="216.0" layoutY="275.0" prefWidth="200.0"
+            promptText="Choose Date" />
 
         <Label layoutX="13.0" layoutY="215.0" text="Category:">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <ComboBox fx:id="categoryComboBox" layoutX="217.0" layoutY="210.0" prefWidth="200.0" promptText="Select Category" />
-        <Button fx:id="saveButton" layoutX="120.0" layoutY="417.0" prefHeight="46.0" prefWidth="103.0" text="Save" textFill="WHITE">
+            </font>
+        </Label>
+        <ComboBox fx:id="categoryComboBox" layoutX="217.0" layoutY="210.0" prefWidth="200.0"
+            promptText="Select Category" />
+        <Button fx:id="saveButton" layoutX="120.0" layoutY="417.0" prefHeight="46.0"
+            prefWidth="103.0" text="Save" textFill="WHITE">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="cancelButton" layoutX="235.0" layoutY="417.0" prefHeight="46.0" prefWidth="103.0" text="Cancel" textFill="WHITE">
+        <Button fx:id="cancelButton" layoutX="235.0" layoutY="417.0" prefHeight="46.0"
+            prefWidth="103.0" text="Cancel" textFill="WHITE">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Label layoutX="4.0" layoutY="54.0" maxHeight="9.0" minHeight="3.0" prefHeight="4.0" prefWidth="281.0" style="-fx-background-color: black;" />
-      <CheckBox fx:id="splitCheckBox" layoutX="227.0" layoutY="355.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="185.0" text="Split Transaction" />
-      <Label layoutX="14.0" layoutY="353.0" text="Split Transaction:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>

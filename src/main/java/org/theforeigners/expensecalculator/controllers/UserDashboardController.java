@@ -379,6 +379,7 @@ public class UserDashboardController implements Initializable {
         transactionMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddTransaction", () -> {
             loadBudgetTableData();
             loadUserTotals();
+            loadMonthlyLeftover();
         }));
 
         groupMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroup"));

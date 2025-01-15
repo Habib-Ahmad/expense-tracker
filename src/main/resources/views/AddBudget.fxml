@@ -7,31 +7,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="269.0" prefWidth="410.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.AddBudgetController">
+<AnchorPane prefHeight="269.0" prefWidth="410.0" stylesheets="@../style/styles.css"
+    xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.theforeigners.expensecalculator.controllers.AddBudgetController">
     <children>
         <Label layoutX="17.0" layoutY="17.0" styleClass="heading" text="Add Budget" />
 
         <Label layoutX="20.0" layoutY="84.0" text="Category:">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <ComboBox fx:id="categoryComboBox" layoutX="150.0" layoutY="79.0" prefWidth="200.0" promptText="Choose Category" />
+            </font>
+        </Label>
+        <ComboBox fx:id="categoryComboBox" layoutX="150.0" layoutY="79.0" prefWidth="200.0"
+            promptText="Choose Category" />
 
         <Label layoutX="20.0" layoutY="152.0" text="Limit:">
             <font>
                 <Font size="16.0" />
-            </font></Label>
-        <TextField fx:id="limitField" layoutX="150.0" layoutY="147.0" prefWidth="200.0" promptText="Enter Limit$">
+            </font>
+        </Label>
+        <TextField fx:id="limitField" layoutX="150.0" layoutY="147.0" prefWidth="200.0"
+            promptText="Enter Limit">
             <font>
                 <Font size="14.0" />
-            </font></TextField>
-        <Label layoutX="5.0" layoutY="53.0" maxHeight="9.0" minHeight="3.0" prefHeight="3.0" prefWidth="200.0" style="-fx-background-color: black;" />
-        <Button fx:id="saveButton" layoutX="139.0" layoutY="226.0" prefHeight="46.0" prefWidth="101.0" style="-fx-font-weight: bold; -fx-background-color: #0335fc;" text="Save" textFill="WHITE">
+            </font>
+        </TextField>
+        <Label layoutX="5.0" layoutY="53.0" maxHeight="9.0" minHeight="3.0" prefHeight="3.0"
+            prefWidth="200.0" style="-fx-background-color: black;" />
+        <Button fx:id="saveButton" layoutX="139.0" layoutY="226.0" prefHeight="46.0"
+            prefWidth="101.0"
+            text="Save" textFill="WHITE">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button fx:id="cancelButton" layoutX="260.0" layoutY="226.0" prefHeight="46.0" prefWidth="101.0" style="-fx-font-weight: bold; -fx-background-color: #0335fc;" text="Cancel" textFill="WHITE">
+        <Button fx:id="cancelButton" layoutX="260.0" layoutY="226.0" prefHeight="46.0"
+            prefWidth="101.0"
+            text="Cancel" textFill="WHITE">
             <font>
                 <Font size="15.0" />
             </font>

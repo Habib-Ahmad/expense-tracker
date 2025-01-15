@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class AddBudgetController implements CallbackHandler {
-
     private Runnable onSuccessCallback;
+
     @FXML
     private Button cancelButton;
 
@@ -34,8 +34,8 @@ public class AddBudgetController implements CallbackHandler {
     @FXML
     public void initialize() {
         loadCategories();
-        saveButton.setOnAction(event -> handleSave());
-        cancelButton.setOnAction(event -> handleCancel());
+        saveButton.setOnAction(_ -> handleSave());
+        cancelButton.setOnAction(_ -> handleCancel());
     }
 
     private void loadCategories() {
@@ -142,6 +142,7 @@ public class AddBudgetController implements CallbackHandler {
 
     private void handleCancel() {
         clearFields();
+        UtilityMethods.closeCurrentWindow(cancelButton);
     }
 
     private void clearFields() {

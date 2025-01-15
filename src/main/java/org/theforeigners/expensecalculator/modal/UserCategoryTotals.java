@@ -1,16 +1,24 @@
 package org.theforeigners.expensecalculator.modal;
 
+import org.theforeigners.expensecalculator.utilities.TransactionType;
+
 public class UserCategoryTotals {
     private String category;
     private String date;
-    private double income;
-    private double expense;
     private double netAmount;
+    private TransactionType type;
 
     public UserCategoryTotals(String category, String date, double netAmount) {
         this.category = category;
         this.date = date;
         this.netAmount = netAmount;
+    }
+
+    public UserCategoryTotals(String category, String date, double netAmount, TransactionType type) {
+        this.category = category;
+        this.date = date;
+        this.netAmount = netAmount;
+        this.type = type;
     }
 
     public String getDate() {
@@ -29,27 +37,15 @@ public class UserCategoryTotals {
         this.category = category;
     }
 
-    public double getIncome() {
-        return income;
-    }
-
-    public void setIncome(double income) {
-        this.income = income;
-    }
-
-    public double getExpense() {
-        return expense;
-    }
-
-    public void setExpense(double expense) {
-        this.expense = expense;
-    }
-
     public double getNetAmount() {
         return netAmount;
     }
 
     public void setNetAmount(double netAmount) {
         this.netAmount = netAmount;
+    }
+
+    public TransactionType getType() {
+        return type;
     }
 }

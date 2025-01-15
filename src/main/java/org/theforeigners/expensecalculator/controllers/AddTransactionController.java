@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AddTransactionController implements Initializable, CallbackHandler {
-
     private Runnable onSuccessCallback;
     @FXML
     private TextField amountField;
@@ -44,8 +43,8 @@ public class AddTransactionController implements Initializable, CallbackHandler 
         typeComboBox.getItems().setAll(TransactionType.values());
         loadCategoriesFromDatabase();
 
-        saveButton.setOnAction(event -> handleSaveTransaction());
-        cancelButton.setOnAction(event -> handleCancel());
+        saveButton.setOnAction(_ -> handleSaveTransaction());
+        cancelButton.setOnAction(_ -> handleCancel());
     }
 
     private void loadCategoriesFromDatabase() {

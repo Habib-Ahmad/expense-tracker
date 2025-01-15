@@ -137,7 +137,7 @@
             <Label text="!" />
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Button fx:id="prevMonthBtn" text="Prev">
+            <!-- <Button fx:id="prevMonthBtn" text="Prev">
                 <graphic>
                     <FontAwesomeIcon glyphName="BACKWARD" />
                 </graphic>
@@ -146,7 +146,7 @@
                 <graphic>
                     <FontAwesomeIcon glyphName="FORWARD" />
                 </graphic>
-            </Button>
+            </Button> -->
             <ComboBox fx:id="monthYearComboBox" promptText="Select Month-Year"
                 styleClass="combo-box" />
             <Button fx:id="logoutBtn" style="-fx-border-color: red;" styleClass="logoutButton"
@@ -169,7 +169,7 @@
                         <TableColumn fx:id="totalsAmountIncomeColumn" prefWidth="220.0"
                             text="Amount" />
                         <TableColumn fx:id="dateColumn" maxWidth="277.0" minWidth="0.0"
-                            prefWidth="280.0" text="Date" />
+                            prefWidth="237.0" text="Date" />
                     </columns>
                 </TableView>
                 <HBox.margin>

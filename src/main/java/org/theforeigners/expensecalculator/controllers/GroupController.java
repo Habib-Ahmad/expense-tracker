@@ -1,14 +1,16 @@
 package org.theforeigners.expensecalculator.controllers;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 import org.theforeigners.expensecalculator.database.DBConnection;
 import org.theforeigners.expensecalculator.modal.*;
 import org.theforeigners.expensecalculator.utilities.SessionManager;
@@ -29,18 +31,6 @@ public class GroupController {
     private TextField usernameField;
 
     @FXML
-    private TableColumn<UserBudgetData, String> budgetCategoryColumn;
-
-    @FXML
-    private TableColumn<UserBudgetData, Double> budgetLimitColumn;
-
-    @FXML
-    private TableColumn<UserBudgetData, Double> budgetSpendColumn;
-
-    @FXML
-    private TableView<UserBudgetData> budgetTable;
-
-    @FXML
     private Button cancelButton;
 
     @FXML
@@ -53,19 +43,16 @@ public class GroupController {
     private Button saveButton;
 
     @FXML
-    private TableColumn<Transaction, Integer> transactionAmountColumn;
+    private TableColumn<UserCategoryTotals, Double> transactionAmountColumn;
 
     @FXML
-    private TableColumn<Transaction, String> transactionCategoryColumn;
+    private TableColumn<UserCategoryTotals, String> transactionCategoryColumn;
 
     @FXML
-    private TableColumn<Transaction, Date> transactionDateColumn;
+    private TableColumn<UserCategoryTotals, Date> transactionDateColumn;
 
     @FXML
-    private TableView<Transaction> transactionTable;
-
-    @FXML
-    private TableColumn<Transaction, String> transactionTypeColumn;
+    private TableView<UserCategoryTotals> transactionTable;
 
     @FXML
     private ListView<User> userListView;
@@ -94,85 +81,43 @@ public class GroupController {
     @FXML
     private MenuItem budgetMenuItem;
 
-    private int groupId = SessionManager.getCurrentGroupId();
+    @FXML
+    private ListView<UserBudgetData> budgetListView;
+
     private String groupName = SessionManager.getCurrentGroupName();
 
     private ObservableList<UserBudgetData> budgetData = FXCollections.observableArrayList();
-    private ObservableList<Transaction> transactionData = FXCollections.observableArrayList();
     private ObservableList<User> userData = FXCollections.observableArrayList();
     private ObservableList<User> groupUsersList = FXCollections.observableArrayList();
     private ObservableList<User> selectedGroupUsersList = FXCollections.observableArrayList();
+    private final ObservableList<UserBudgetData> budgetList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        userListView.getItems().add(new User(1, "ahmad"));
-        budgetCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        budgetLimitColumn.setCellValueFactory(new PropertyValueFactory<>("limit"));
-        budgetLimitColumn.setOnEditCommit(event -> {
-            UserBudgetData row = event.getRowValue();
-            double newLimit = event.getNewValue();
-            if (newLimit > 0) {
-                row.setLimit(newLimit);
-                updateLimitInDatabase(row);
-            } else {
-                UtilityMethods.showPopupWarning("Amount must be greater than 0");
-                budgetTable.refresh();
-            }
-        });
-        budgetSpendColumn.setCellValueFactory(new PropertyValueFactory<>("spend"));
-        budgetSpendColumn.setPrefWidth(200);
-        budgetSpendColumn.setCellFactory(column -> new TableCell<>() {
+        transactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("netAmount"));
+        transactionCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        transactionAmountColumn.setCellFactory(_ -> new TableCell<>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
+                getStyleClass().removeAll("income-cell", "expense-cell");
                 if (empty || item == null) {
                     setText(null);
-                    setGraphic(null);
                 } else {
-                    UserBudgetData rowData = getTableRow().getItem();
-                    double budgetLimit = rowData.getLimit();
-                    double spendPercentage = item / budgetLimit;
+                    UserCategoryTotals currentTransaction = getTableView().getItems().get(getIndex());
+                    String type = String.valueOf(currentTransaction.getType());
 
-                    HBox hbox = new HBox();
-                    hbox.setSpacing(5);
-                    Rectangle progressBar = new Rectangle();
-                    progressBar.setHeight(30);
-                    progressBar.setWidth(spendPercentage * 100);
-                    progressBar.setFill(spendPercentage <= 1 ? Color.LIGHTGREEN : Color.LIGHTCORAL);
+                    setText(String.format("$%.2f", item));
 
-                    hbox.getChildren().add(progressBar);
-                    hbox.setSpacing(5);
-
-                    Label label = new Label(String.format("%.2f", item));
-                    hbox.getChildren().add(label);
-
-                    setGraphic(hbox);
-                }
-            }
-        });
-
-        transactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        transactionCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
-        transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        transactionTypeColumn.setCellValueFactory(cellData -> {
-            Transaction transaction = cellData.getValue();
-            return new SimpleStringProperty(transaction.getType().name());
-        });
-        transactionTypeColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(String.valueOf(item), empty);
-                if (empty || item == null) {
-                    setText(null);
-                    getStyleClass().removeAll("income-cell", "expense-cell");
-                } else {
-                    setText(item);
-                    if (item.equals("INCOME")) {
-                        getStyleClass().add("income-cell");
-                        getStyleClass().remove("expense-cell");
-                    } else {
-                        getStyleClass().add("expense-cell");
-                        getStyleClass().remove("income-cell");
+                    if ("INCOME".equalsIgnoreCase(type)) {
+                        if (!getStyleClass().contains("income-cell")) {
+                            getStyleClass().add("income-cell");
+                        }
+                    } else if ("EXPENSE".equalsIgnoreCase(type)) {
+                        if (!getStyleClass().contains("expense-cell")) {
+                            getStyleClass().add("expense-cell");
+                        }
                     }
                 }
             }
@@ -180,35 +125,144 @@ public class GroupController {
         loadBudgetData(groupName);
         loadTransactionData(groupName);
         loadGroupUsers();
-        removeBtn.setOnAction(event -> handleRemoveButton());
-        cancelButton.setOnAction(event -> handleCancelButton());
-        searchButton.setOnAction(event -> handleSearchButtonAction());
-        saveButton.setOnAction(event -> {
+        removeBtn.setOnAction(_ -> handleRemoveButton());
+        cancelButton.setOnAction(_ -> handleCancelButton());
+        searchButton.setOnAction(_ -> handleSearchButtonAction());
+        saveButton.setOnAction(_ -> {
             saveUpdatedGroupData();
         });
         setupMenuItemActions();
         groupNameField.setEditable(false);
         groupNameField.setText(groupName);
+        initializeBudgetListView();
+    }
+
+    private void initializeBudgetListView() {
+        budgetListView.setItems(budgetList);
+        budgetListView.setCellFactory(_ -> new ListCell<>() {
+            @Override
+            protected void updateItem(UserBudgetData item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    HBox card = createBudgetCard(item);
+                    setGraphic(card);
+                }
+            }
+        });
+    }
+
+    private HBox createBudgetCard(UserBudgetData item) {
+        HBox card = new HBox();
+        card.setSpacing(8);
+        card.setStyle(
+                "-fx-padding: 10; -fx-background-color: #f8f8f8; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;");
+        card.setPrefHeight(30);
+        card.setPrefWidth(300);
+        card.setMaxWidth(420);
+
+        VBox detailsBox = new VBox();
+        detailsBox.setSpacing(3);
+
+        Label categoryLabel = new Label(item.getCategory());
+        categoryLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Label limitLabel = new Label(String.format("%.0f $", item.getLimit()));
+        limitLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #555;");
+        TextField limitTextField = new TextField(String.valueOf(item.getLimit()));
+        limitTextField.setStyle("-fx-font-size: 16px;");
+        limitTextField.setVisible(false);
+
+        limitLabel.setOnMouseClicked(event -> {
+            boolean count = event.getClickCount() == 2;
+            if (count) {
+                limitLabel.setVisible(false);
+                limitTextField.setVisible(true);
+                limitTextField.requestFocus();
+            }
+        });
+
+        limitTextField.setOnAction(_ -> commitLimitEdit(limitTextField, limitLabel, item));
+        limitTextField.focusedProperty().addListener((_, _, newVal) -> {
+            if (!newVal) {
+                commitLimitEdit(limitTextField, limitLabel, item);
+            }
+        });
+
+        detailsBox.getChildren().addAll(categoryLabel, limitLabel, limitTextField);
+
+        ProgressBar progressBar = new ProgressBar();
+        double progressWidth = item.getSpend() == 0 ? 200 : (item.getSpend() / item.getLimit()) * 200;
+        Color barColor;
+        if (item.getSpend() == 0) {
+            barColor = Color.GRAY;
+        } else {
+            barColor = item.getSpend() <= item.getLimit() ? Color.LIGHTGREEN : Color.LIGHTCORAL;
+        }
+        progressBar.setProgress(item.getSpend() / item.getLimit());
+        progressBar.setPrefWidth(progressWidth);
+        progressBar.setPrefWidth(250);
+        progressBar.setStyle("-fx-accent: " + barColor.toString().replace("0x", "#") + ";");
+
+        Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Label spendLabel = new Label(String.format("%.0f $     %.0f%%", item.getSpend(),
+                (item.getSpend() / item.getLimit()) * 100));
+        spendLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #555;");
+
+        VBox progressBox = new VBox(progressBar, spendLabel);
+        progressBox.setSpacing(5);
+
+        card.getChildren().addAll(detailsBox, spacer, progressBox);
+
+        return card;
+    }
+
+    private void commitLimitEdit(TextField limitTextField, Label limitLabel, UserBudgetData item) {
+        try {
+            double newLimit = Double.parseDouble(limitTextField.getText());
+            if (item.getLimit() == newLimit) {
+                limitLabel.setVisible(true);
+                limitTextField.setVisible(false);
+                return;
+            }
+            if (newLimit > 0) {
+                item.setLimit(newLimit);
+                limitLabel.setText(String.format("%.0f $", newLimit));
+                updateLimitInDatabase(item);
+                budgetListView.refresh();
+            } else {
+                UtilityMethods.showPopupWarning("Amount must be greater than 0");
+            }
+        } catch (NumberFormatException e) {
+            UtilityMethods.showPopupWarning("Invalid amount entered. Please enter a valid number.");
+        } finally {
+            limitLabel.setVisible(true);
+            limitTextField.setVisible(false);
+        }
     }
 
     private void setupMenuItemActions() {
-        groupMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroup"));
-        groupMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("DeleteGroup"));
-        budgetMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroupBudget", () -> {
+        groupMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroup"));
+        groupMenuItem2.setOnAction(_ -> UtilityMethods.switchToScene("DeleteGroup"));
+        budgetMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroupBudget", () -> {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         }));
-        transactionMenuItem.setOnAction(event -> UtilityMethods.switchToScene("AddGroupTransaction", () -> {
+        transactionMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("AddGroupTransaction", () -> {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         }));
-        transactionMenuItem2.setOnAction(event -> {
+        transactionMenuItem2.setOnAction(_ -> {
             loadTransactionData(groupName);
             loadBudgetData(groupName);
         });
-        todoMenuItem.setOnAction(event -> UtilityMethods.switchToScene("GroupTodoList"));
-        todoMenuItem2.setOnAction(event -> UtilityMethods.switchToScene("GroupViewTodo"));
-        chartMenuItem.setOnAction(event -> {
+        todoMenuItem.setOnAction(_ -> UtilityMethods.switchToScene("GroupTodoList"));
+        todoMenuItem2.setOnAction(_ -> UtilityMethods.switchToScene("GroupViewTodo"));
+        chartMenuItem.setOnAction(_ -> {
             if (groupNameField.getText().isEmpty()) {
                 UtilityMethods.showPopupWarning("Select any group 1st");
                 return;
@@ -292,11 +346,12 @@ public class GroupController {
                         totalSpend);
                 budgetData.add(budget);
             }
+            budgetList.clear();
+            budgetList.addAll(budgetData);
+            budgetListView.setItems(budgetList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        budgetTable.setItems(budgetData);
     }
 
     private void loadTransactionData(String groupName) {
@@ -321,11 +376,16 @@ public class GroupController {
             int currentMonth = currentDate.getMonthValue();
             int currentYear = currentDate.getYear();
 
-            String transactionQuery = "SELECT t.amount, c.name AS category_name, c.description, t.date, t.split, t.type "
-                    +
-                    "FROM TRANSACTION t " +
-                    "JOIN CATEGORY c ON t.category_id = c.category_id " +
-                    "WHERE t.group_id = ? AND MONTH(t.date) = ? AND YEAR(t.date) = ?";
+            String transactionQuery = "SELECT " +
+                    "T.transaction_id, " +
+                    "C.name AS category_name, " +
+                    "T.date AS date, " +
+                    "T.amount, " +
+                    "T.type, " +
+                    "T.split AS is_split " +
+                    "FROM TRANSACTION T " +
+                    "JOIN CATEGORY C ON T.category_id = C.category_id " +
+                    "WHERE T.group_id = ? AND MONTH(T.date) = ? AND YEAR(T.date) = ?";
             PreparedStatement ps = connection.prepareStatement(transactionQuery);
             ps.setInt(1, groupId);
             ps.setInt(2, currentMonth);
@@ -333,7 +393,7 @@ public class GroupController {
 
             ResultSet rs = ps.executeQuery();
 
-            transactionData.clear();
+            ObservableList<UserCategoryTotals> data = FXCollections.observableArrayList();
 
             if (!rs.isBeforeFirst()) {
                 YearMonth previousMonth = YearMonth.now().minusMonths(1);
@@ -346,23 +406,17 @@ public class GroupController {
             }
 
             while (rs.next()) {
-                int amount = rs.getInt("amount");
-                int splitTransaction = rs.getInt("split");
+                double amount = rs.getDouble("amount");
                 String categoryName = rs.getString("category_name");
-                String categoryDescription = rs.getString("description");
-                Date date = rs.getDate("date");
+                String date = rs.getString("date");
                 String type = rs.getString("type");
-                boolean split = splitTransaction == 1;
-
                 TransactionType transactionType = TransactionType.valueOf(type);
-
-                Category category = new Category(categoryName, categoryDescription);
-                Transaction transaction = new Transaction(transactionType, amount, date, category.getName(), split,
-                        new User(SessionManager.getCurrentUserName(), SessionManager.getCurrentUserEmail()));
-                transactionData.add(transaction);
+                data.add(new UserCategoryTotals(categoryName, String.valueOf(date), amount, transactionType));
             }
-
-            transactionTable.setItems(transactionData);
+            transactionCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+            transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            transactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("netAmount"));
+            transactionTable.setItems(data);
         } catch (SQLException e) {
             e.printStackTrace();
         }

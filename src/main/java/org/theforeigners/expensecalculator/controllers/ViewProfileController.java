@@ -130,7 +130,7 @@ public class ViewProfileController {
         String password = null;
         try {
             Connection connection = DBConnection.getConnection();
-            String sql = "Select password from users where user_id =?";
+            String sql = "SELECT password FROM users WHERE user_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userId);
             ResultSet rs = statement.executeQuery();

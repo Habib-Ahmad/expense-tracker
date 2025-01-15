@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage stage) {
         try {
@@ -20,7 +19,7 @@ public class Main extends Application {
             stage.setTitle("My Expense Tracker");
             stage.setScene(scene);
             stage.centerOnScreen();
-            stage.setFullScreenExitHint("");
+            stage.setFullScreenExitHint("Full screen hint!");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

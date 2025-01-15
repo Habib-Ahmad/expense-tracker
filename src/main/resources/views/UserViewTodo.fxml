@@ -9,20 +9,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="540.0" prefWidth="784.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.UserTodoController">
+<AnchorPane prefHeight="540.0" prefWidth="784.0" stylesheets="@../style/styles.css"
+    xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.theforeigners.expensecalculator.controllers.UserTodoController">
     <children>
         <VBox layoutX="20" layoutY="20" prefHeight="520" prefWidth="753.0" spacing="10">
             <Label styleClass="heading" text="View -Todos" />
-         <HBox prefHeight="53.0" prefWidth="753.0" spacing="20.0">
-            <children>
-               <Button fx:id="markButton" mnemonicParsing="false" text="Mark as Completed">
-                  <graphic>
-                     <FontAwesomeIcon fill="#01f51a" glyphName="CHECK" />
-                  </graphic>
-               </Button>
-               <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Cancel" />
-            </children>
-         </HBox>
+            <HBox prefHeight="53.0" prefWidth="753.0" spacing="20.0">
+                <children>
+                    <Button fx:id="markButton" mnemonicParsing="false" text="Mark as Completed">
+                        <graphic>
+                            <FontAwesomeIcon fill="#01f51a" glyphName="CHECK" />
+                        </graphic>
+                    </Button>
+                    <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0"
+                        mnemonicParsing="false" text="Cancel" />
+                </children>
+            </HBox>
 
             <TableView fx:id="todoTable" prefHeight="400.0" prefWidth="822.0">
                 <columns>

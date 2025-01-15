@@ -18,7 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserTodoController {
-
     @FXML
     private TableView<Todo> todoTable;
 
@@ -56,8 +55,8 @@ public class UserTodoController {
         createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
         loadTodosForUser(userId);
-        markButton.setOnAction(event -> handleMarkButton());
-        cancelButton.setOnAction(event -> handleCancelButton());
+        markButton.setOnAction(_ -> handleMarkButton());
+        cancelButton.setOnAction(_ -> handleCancelButton());
     }
 
     private void handleCancelButton() {
@@ -92,7 +91,7 @@ public class UserTodoController {
         Todo selectedTodo = todoTable.getSelectionModel().getSelectedItem();
         if (selectedTodo != null) {
             int todoId = selectedTodo.getTodoId();
-            String query = "UPDATE TODO SET completed = ? WHERE todo_id = ?";
+            String query = "UPDATE todo SET completed = ? WHERE todo_id = ?";
             try {
                 Connection connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query);

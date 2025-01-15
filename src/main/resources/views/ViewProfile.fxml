@@ -34,8 +34,8 @@
 
                 <HBox spacing="20.0">
                     <Button fx:id="updateButton" onAction="#handleUpdateProfile"
-                        style="-fx-background-color: #0335fc;" text="Update Profile" />
-                    <Button onAction="#handleCancel" style="-fx-background-color: #0335fc;"
+                        text="Update Profile" />
+                    <Button onAction="#handleCancel"
                         text="Cancel" />
                 </HBox>
             </children>

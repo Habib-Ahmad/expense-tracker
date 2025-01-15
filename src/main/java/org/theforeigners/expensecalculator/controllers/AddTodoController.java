@@ -13,7 +13,6 @@ import java.sql.*;
 import java.util.HashMap;
 
 public class AddTodoController {
-
     @FXML
     private Button cancelButton;
 
@@ -33,8 +32,8 @@ public class AddTodoController {
 
     @FXML
     public void initialize() {
-        saveButton.setOnAction(event -> handleSaveTodo());
-        cancelButton.setOnAction(event -> UtilityMethods.closeCurrentWindow(cancelButton));
+        saveButton.setOnAction(_ -> handleSaveTodo());
+        cancelButton.setOnAction(_ -> UtilityMethods.closeCurrentWindow(cancelButton));
         loadCategoriesFromDatabase();
     }
 
@@ -53,7 +52,7 @@ public class AddTodoController {
 
         try {
             Connection connection = DBConnection.getConnection();
-            String query = "INSERT INTO TODO (user_id, item_name, category_id, completed, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())";
+            String query = "INSERT INTO todo (user_id, item_name, category_id, completed, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())";
             PreparedStatement ps = connection.prepareStatement(query);
             int categoryId = categoryMap.get(category);
 
@@ -78,7 +77,7 @@ public class AddTodoController {
     }
 
     private void loadCategoriesFromDatabase() {
-        String query = "SELECT name, category_id FROM CATEGORY";
+        String query = "SELECT name, category_id FROM category";
         try {
             Connection connection = DBConnection.getConnection();
             if (connection == null || connection.isClosed()) {

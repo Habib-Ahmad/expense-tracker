@@ -16,93 +16,105 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="673.0" prefWidth="903.0" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.theforeigners.expensecalculator.controllers.GroupController">
-    <children>
-        <Label layoutX="9.0" layoutY="36.0" styleClass="heading" text="Group Management" />
+<AnchorPane prefHeight="695.0" prefWidth="934.0" stylesheets="@../style/styles.css"
+   xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="org.theforeigners.expensecalculator.controllers.GroupController">
+   <children>
+      <Label layoutX="9.0" layoutY="36.0" styleClass="heading" text="Group Management" />
 
-        <Label layoutX="28.0" layoutY="165.0" text="Group Name:">
+      <Label layoutX="28.0" layoutY="165.0" text="Group Name:">
          <font>
             <Font size="15.0" />
-         </font></Label>
-        <TextField fx:id="groupNameField" layoutX="158.0" layoutY="160.0" prefWidth="250.0" promptText="Enter Group Name" />
+         </font>
+      </Label>
+      <TextField fx:id="groupNameField" layoutX="158.0" layoutY="160.0" prefWidth="250.0"
+         promptText="Enter Group Name" />
 
-        <Label layoutX="28.0" layoutY="211.0" text="Users:">
+      <Label layoutX="28.0" layoutY="211.0" text="Users:">
          <font>
             <Font size="15.0" />
-         </font></Label>
-        <HBox layoutX="86.0" layoutY="211.0" prefHeight="139.0" prefWidth="592.0" spacing="10">
-            <children>
-                <ListView fx:id="userListView" prefHeight="139.0" prefWidth="480.0" />
-                <VBox prefHeight="139.0" prefWidth="131.0" spacing="10">
-                    <children>
-                  <Button fx:id="removeBtn" layoutX="10.0" layoutY="46.0" prefHeight="46.0" prefWidth="126.0" text="Remove" textFill="WHITE">
+         </font>
+      </Label>
+      <HBox layoutX="86.0" layoutY="211.0" prefHeight="139.0" prefWidth="592.0" spacing="10">
+         <children>
+            <ListView fx:id="userListView" prefHeight="139.0" prefWidth="480.0" />
+            <VBox prefHeight="139.0" prefWidth="131.0" spacing="10">
+               <children>
+                  <Button fx:id="removeBtn" layoutX="10.0" layoutY="46.0" prefHeight="46.0"
+                     prefWidth="126.0" text="Remove" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
 
-        <Label layoutX="28.0" layoutY="363.0" text="Group Transactions:">
+      <Label layoutX="28.0" layoutY="363.0" text="Group Transactions:">
          <font>
             <Font size="15.0" />
-         </font></Label>
-        <TableView fx:id="transactionTable" layoutX="15.0" layoutY="396.0" prefHeight="204.0" prefWidth="423.0">
-            <columns>
-                <TableColumn fx:id="transactionTypeColumn" prefWidth="100.0" text="Type" />
-                <TableColumn fx:id="transactionAmountColumn" prefWidth="100.0" text="Amount" />
-                <TableColumn fx:id="transactionDateColumn" prefWidth="100.0" text="Date" />
-                <TableColumn fx:id="transactionCategoryColumn" prefWidth="122.0" text="Category" />
-            </columns>
-        </TableView>
+         </font>
+      </Label>
+      <TableView fx:id="transactionTable" layoutX="15.0" layoutY="396.0" prefHeight="226.0"
+         prefWidth="423.0">
+         <columns>
+            <TableColumn fx:id="transactionCategoryColumn" prefWidth="122.0" text="Category" />
+            <TableColumn fx:id="transactionAmountColumn" prefWidth="152.0" text="Amount" />
+            <TableColumn fx:id="transactionDateColumn" prefWidth="148.0" text="Date" />
+         </columns>
+      </TableView>
 
-        <Label layoutX="478.0" layoutY="365.0" text="Group Budgets:">
+      <Label layoutX="478.0" layoutY="365.0" text="Group Budgets:">
          <font>
             <Font size="15.0" />
-         </font></Label>
-        <TableView fx:id="budgetTable" layoutX="473.0" layoutY="396.0" prefHeight="195.0" prefWidth="410.0">
-            <columns>
-                <TableColumn fx:id="budgetCategoryColumn" prefWidth="150.0" text="Category" />
-                <TableColumn fx:id="budgetLimitColumn" prefWidth="114.0" text="Limit" />
-                <TableColumn fx:id="budgetSpendColumn" prefWidth="145.0" text="Spend" />
-            </columns>
-        </TableView>
-      <Label layoutX="3.0" layoutY="70.0" maxHeight="5.0" minHeight="3.0" prefHeight="4.0" prefWidth="305.0" style="-fx-background-color: #132431;" text="Label" textFill="WHITE" />
-      <Button fx:id="saveButton" layoutX="342.0" layoutY="612.0" prefHeight="46.0" prefWidth="107.0" text="Save" textFill="WHITE">
+         </font>
+      </Label>
+      <Label layoutX="3.0" layoutY="70.0" maxHeight="5.0" minHeight="3.0" prefHeight="4.0"
+         prefWidth="305.0" style="-fx-background-color: #132431;" text="Label" textFill="WHITE" />
+      <Button fx:id="saveButton" layoutX="342.0" layoutY="643.0" prefHeight="46.0" prefWidth="107.0"
+         text="Save" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="cancelButton" layoutX="519.0" layoutY="614.0" prefHeight="46.0" prefWidth="113.0" text="Cancel" textFill="WHITE">
+      <Button fx:id="cancelButton" layoutX="519.0" layoutY="645.0" prefHeight="46.0"
+         prefWidth="113.0" text="Cancel" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <MenuBar layoutY="-1.0" prefHeight="30.0" prefWidth="903.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Group">
-            <items>
-              <MenuItem fx:id="groupMenuItem" mnemonicParsing="false" text="Add Group">
+      <MenuBar layoutY="-1.0" prefHeight="31.0" prefWidth="934.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Group">
+               <items>
+                  <MenuItem fx:id="groupMenuItem" mnemonicParsing="false" text="Add Group">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT1" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                        <KeyCodeCombination alt="UP" code="DIGIT1" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <MenuItem fx:id="groupMenuItem2" mnemonicParsing="false" text="Delete Group">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT2" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
-            </items>
-          </Menu>
+                        <KeyCodeCombination alt="UP" code="DIGIT2" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Transactions">
                <items>
-                  <MenuItem fx:id="transactionMenuItem" mnemonicParsing="false" text="Add Transaction">
+                  <MenuItem fx:id="transactionMenuItem" mnemonicParsing="false"
+                     text="Add Transaction">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT3" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                        <KeyCodeCombination alt="UP" code="DIGIT3" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <MenuItem fx:id="transactionMenuItem2" mnemonicParsing="false" text="Update Data">
                      <accelerator>
-                        <KeyCodeCombination alt="DOWN" code="DIGIT1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="DOWN" code="DIGIT1" control="UP" meta="UP"
+                           shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                </items>
@@ -111,34 +123,43 @@
                <items>
                   <MenuItem fx:id="budgetMenuItem" mnemonicParsing="false" text="Add Budget">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT4" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                        <KeyCodeCombination alt="UP" code="DIGIT4" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Todo">
-            <items>
-              <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add Todo">
+            <Menu mnemonicParsing="false" text="Todo">
+               <items>
+                  <MenuItem fx:id="todoMenuItem" mnemonicParsing="false" text="Add Todo">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT5" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                        <KeyCodeCombination alt="UP" code="DIGIT5" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <MenuItem fx:id="todoMenuItem2" mnemonicParsing="false" text="View Todo">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT6" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Chart">
-            <items>
-              <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Charts">
+                        <KeyCodeCombination alt="UP" code="DIGIT6" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Chart">
+               <items>
+                  <MenuItem fx:id="chartMenuItem" mnemonicParsing="false" text="View Charts">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="DIGIT7" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
-            </items>
-          </Menu>
-        </menus>
+                        <KeyCodeCombination alt="UP" code="DIGIT7" control="UP" meta="UP"
+                           shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
       <Label layoutX="28.0" layoutY="110.0" text="Search Users:" />
-      <TextField fx:id="usernameField" alignment="CENTER" layoutX="158.0" layoutY="104.0" prefHeight="34.0" prefWidth="250.0" promptText="     Enter Username">
+      <TextField fx:id="usernameField" alignment="CENTER" layoutX="158.0" layoutY="104.0"
+         prefHeight="34.0" prefWidth="250.0" promptText="     Enter Username">
          <padding>
             <Insets left="100.0" right="20.0" />
          </padding>
@@ -146,10 +167,14 @@
             <Insets left="20.0" />
          </opaqueInsets>
       </TextField>
-      <Button fx:id="searchButton" layoutX="422.0" layoutY="98.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="113.0" style="-fx-background-color: #0335fc;" text="Search" textFill="WHITE">
+      <Button fx:id="searchButton" layoutX="422.0" layoutY="98.0" mnemonicParsing="false"
+         prefHeight="46.0" prefWidth="113.0" style="-fx-background-color: #0335fc;" text="Search"
+         textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-    </children>
+      <ListView fx:id="budgetListView" layoutX="463.0" layoutY="397.0" minHeight="204.0"
+         prefHeight="226.0" prefWidth="451.0" />
+   </children>
 </AnchorPane>

@@ -171,7 +171,7 @@ public class AddGroupTransactionController implements Initializable, CallbackHan
     }
 
     private int getGroupIdByName(String groupName) {
-        String query = "SELECT group_id FROM GROUPS WHERE name = ?";
+        String query = "SELECT group_id FROM `groups` WHERE name = ?";
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
@@ -192,7 +192,7 @@ public class AddGroupTransactionController implements Initializable, CallbackHan
 
         String query = "SELECT u.user_id, u.name ,u.email FROM USERS u " +
                 "JOIN GROUP_USERS gu ON u.user_id = gu.user_id " +
-                "JOIN GROUPS g ON gu.group_id = g.group_id " +
+                "JOIN `groups` g ON gu.group_id = g.group_id " +
                 "WHERE g.name = ? and u.user_id != ?";
         try {
             Connection connection = DBConnection.getConnection();

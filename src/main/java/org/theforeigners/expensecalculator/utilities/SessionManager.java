@@ -9,6 +9,11 @@ public class SessionManager {
     private static int CurrentGroupId;
     private static String CurrentGroupName;
     private static LocalDate CurrentUserCreatedAt;
+    private static LocalDate selectedDate;
+
+    public static void setSelectedDate(LocalDate date) { selectedDate = date;}
+
+    public static LocalDate getSelectedDate() { return selectedDate; }
 
     public static int getCurrentUserId() {
         return CurrentUserId;
